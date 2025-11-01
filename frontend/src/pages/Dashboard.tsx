@@ -2,15 +2,10 @@ import React from 'react';
 import { useAuth } from '../hooks/useAuth';
 
 const Dashboard: React.FC = () => {
-  const { user, logout } = useAuth();
-
-  const handleLogout = async () => {
-    await logout();
-    window.location.href = '/login';
-  };
+  const { user } = useAuth();
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-purple-100 to-blue-100 p-8">
+    <div className="min-h-screen bg-[#020617] p-8">
       <div className="max-w-4xl mx-auto">
         <div className="bg-white rounded-2xl shadow-2xl p-8">
           <div className="text-center mb-8">
@@ -28,15 +23,6 @@ const Dashboard: React.FC = () => {
               <p><strong>Email Verified:</strong> {user?.email_verified ? '✅ Yes' : '❌ No'}</p>
               <p><strong>User ID:</strong> {user?.id}</p>
             </div>
-          </div>
-
-          <div className="flex justify-center">
-            <button
-              onClick={handleLogout}
-              className="px-8 py-3 bg-red-600 text-white rounded-lg font-medium hover:bg-red-700 transition"
-            >
-              Logout
-            </button>
           </div>
         </div>
       </div>

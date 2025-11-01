@@ -59,40 +59,40 @@ const Login: React.FC = () => {
   };
 
   return (
-    <div className="relative flex items-center justify-center min-h-screen bg-gradient-to-br from-purple-50 via-pink-50 to-purple-100 p-4 sm:p-6 lg:p-8 overflow-hidden">
+    <div className="relative flex items-center justify-center min-h-screen bg-[#020617] p-4 sm:p-6 lg:p-8 overflow-hidden">
       {/* Enhanced decorative background elements */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute -top-40 -right-40 w-96 h-96 bg-purple-400 rounded-full mix-blend-multiply filter blur-3xl opacity-30 animate-blob" />
-        <div className="absolute -bottom-40 -left-40 w-96 h-96 bg-pink-400 rounded-full mix-blend-multiply filter blur-3xl opacity-30 animate-blob animation-delay-2000" />
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-purple-300 rounded-full mix-blend-multiply filter blur-3xl opacity-25 animate-blob animation-delay-4000" />
+        <div className="absolute -top-40 -right-40 w-96 h-96 bg-blue-500/20 rounded-full filter blur-3xl animate-blob" />
+        <div className="absolute -bottom-40 -left-40 w-96 h-96 bg-cyan-500/20 rounded-full filter blur-3xl animate-blob animation-delay-2000" />
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-blue-600/15 rounded-full filter blur-3xl animate-blob animation-delay-4000" />
       </div>
 
       {/* Main card container */}
-      <Card className="w-full max-w-md shadow-2xl border-0 ring-1 ring-purple-100/50 backdrop-blur-xl bg-white/80 relative z-10 overflow-hidden">
+      <Card className="w-full max-w-lg shadow-2xl border border-blue-500/20 backdrop-blur-xl bg-[#0a0e1a]/95 relative z-10 overflow-hidden">
         {/* Subtle gradient overlay */}
-        <div className="absolute inset-0 bg-gradient-to-br from-purple-50/50 via-transparent to-pink-50/50 pointer-events-none" />
+        <div className="absolute inset-0 bg-gradient-to-br from-blue-500/10 via-transparent to-cyan-500/10 pointer-events-none" />
 
-        <CardHeader className="relative space-y-3 text-center pb-6 pt-12">
+        <CardHeader className="relative space-y-4 text-center pb-8 pt-14">
           {/* Icon with enhanced styling */}
-          <div className="mx-auto w-20 h-20 bg-gradient-to-br from-purple-600 via-purple-500 to-pink-500 rounded-3xl flex items-center justify-center shadow-xl shadow-purple-500/40 mb-4 transform hover:scale-105 transition-transform duration-300">
-            <Sparkles className="w-10 h-10 text-white" strokeWidth={2} />
+          <div className="mx-auto w-24 h-24 bg-gradient-to-br from-blue-500 via-blue-600 to-cyan-500 rounded-3xl flex items-center justify-center shadow-glow-blue-lg mb-4 transform hover:scale-105 transition-transform duration-300" style={{ boxShadow: '0 0 40px rgba(96, 165, 250, 0.6), 0 0 80px rgba(96, 165, 250, 0.3)' }}>
+            <Sparkles className="w-12 h-12 text-white" strokeWidth={2.5} />
           </div>
 
-          <CardTitle className="text-4xl sm:text-5xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-purple-600 via-purple-500 to-pink-500 tracking-tight">
+          <CardTitle className="text-5xl sm:text-6xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-blue-300 via-cyan-300 to-blue-400 tracking-tight animate-shimmer bg-[length:200%_auto]">
             AI Zen Garden
           </CardTitle>
 
-          <CardDescription className="text-base sm:text-lg text-slate-600 font-medium">
+          <CardDescription className="text-xl sm:text-2xl text-slate-300 font-semibold">
             Welcome back! Continue your journey.
           </CardDescription>
         </CardHeader>
 
-        <div className="relative px-6 sm:px-10 pb-10 space-y-6">
+        <div className="relative px-8 sm:px-12 pb-12 space-y-7">
           {/* Error Alert */}
           {error && (
-            <Alert variant="destructive" className="animate-in fade-in slide-in-from-top-2 duration-300 border-red-200 bg-red-50">
-              <AlertCircle className="h-4 w-4" />
-              <AlertDescription className="font-medium">{error}</AlertDescription>
+            <Alert variant="destructive" className="animate-in fade-in slide-in-from-top-2 duration-300 border-red-500/50 bg-red-500/10">
+              <AlertCircle className="h-5 w-5" />
+              <AlertDescription className="font-semibold text-base">{error}</AlertDescription>
             </Alert>
           )}
 
@@ -101,9 +101,9 @@ const Login: React.FC = () => {
             onClick={handleGoogleLogin}
             type="button"
             variant="outline"
-            className="w-full h-13 gap-3 font-semibold text-base border-2 border-slate-200 hover:border-purple-300 hover:bg-purple-50/50 transition-all duration-300 shadow-sm hover:shadow-md"
+            className="w-full h-14 gap-3 font-bold text-lg border-2 border-slate-700 hover:border-blue-500/50 bg-slate-800/50 hover:bg-blue-500/10 text-slate-200 transition-all duration-300 shadow-lg hover:shadow-glow-blue"
           >
-            <svg className="w-5 h-5" viewBox="0 0 24 24">
+            <svg className="w-6 h-6" viewBox="0 0 24 24">
               <path
                 fill="#4285F4"
                 d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"
@@ -125,22 +125,22 @@ const Login: React.FC = () => {
           </Button>
 
           {/* Divider */}
-          <div className="relative py-2">
+          <div className="relative py-3">
             <div className="absolute inset-0 flex items-center">
-              <Separator className="w-full bg-gradient-to-r from-transparent via-purple-200 to-transparent" />
+              <Separator className="w-full bg-gradient-to-r from-transparent via-slate-700 to-transparent" />
             </div>
-            <div className="relative flex justify-center text-xs uppercase">
-              <span className="bg-white/90 px-4 py-1 text-slate-500 font-semibold tracking-wider">
+            <div className="relative flex justify-center text-sm uppercase">
+              <span className="bg-[#0a0e1a] px-4 py-1.5 text-slate-400 font-bold tracking-wider">
                 Or continue with email
               </span>
             </div>
           </div>
 
           {/* Email/Password Form */}
-          <form onSubmit={handleSubmit} className="space-y-5 flex flex-col items-center">
-            <div className="space-y-2.5 w-full max-w-sm">
-              <Label htmlFor="email" className="text-sm font-semibold text-slate-700 flex items-center gap-2">
-                <Mail className="w-4 h-4 text-purple-600" />
+          <form onSubmit={handleSubmit} className="space-y-6 flex flex-col items-center">
+            <div className="space-y-3 w-full max-w-md">
+              <Label htmlFor="email" className="text-base font-bold text-slate-200 flex items-center gap-2">
+                <Mail className="w-5 h-5 text-blue-400" />
                 Email Address
               </Label>
               <Input
@@ -150,13 +150,13 @@ const Login: React.FC = () => {
                 onChange={(e) => setEmail(e.target.value)}
                 required
                 placeholder="you@example.com"
-                className="h-13 text-base border-2 border-slate-200 focus:border-purple-400 focus:ring-4 focus:ring-purple-100 transition-all duration-200 rounded-xl"
+                className="h-14 text-lg border-2 border-slate-700 focus:border-blue-500 focus:ring-4 focus:ring-blue-500/20 transition-all duration-200 rounded-xl bg-slate-900/50 text-slate-100 placeholder:text-slate-500"
               />
             </div>
 
-            <div className="space-y-2.5 w-full max-w-sm">
-              <Label htmlFor="password" className="text-sm font-semibold text-slate-700 flex items-center gap-2">
-                <Lock className="w-4 h-4 text-purple-600" />
+            <div className="space-y-3 w-full max-w-md">
+              <Label htmlFor="password" className="text-base font-bold text-slate-200 flex items-center gap-2">
+                <Lock className="w-5 h-5 text-blue-400" />
                 Password
               </Label>
               <div className="relative">
@@ -167,17 +167,17 @@ const Login: React.FC = () => {
                   onChange={(e) => setPassword(e.target.value)}
                   required
                   placeholder="••••••••"
-                  className="h-13 text-base border-2 border-slate-200 focus:border-purple-400 focus:ring-4 focus:ring-purple-100 transition-all duration-200 rounded-xl pr-12"
+                  className="h-14 text-lg border-2 border-slate-700 focus:border-blue-500 focus:ring-4 focus:ring-blue-500/20 transition-all duration-200 rounded-xl pr-14 bg-slate-900/50 text-slate-100 placeholder:text-slate-500"
                 />
                 <button
                   type="button"
                   onClick={() => setShowPassword(!showPassword)}
-                  className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-purple-600 transition-colors"
+                  className="absolute right-4 top-1/2 -translate-y-1/2 text-slate-400 hover:text-blue-400 transition-colors"
                 >
                   {showPassword ? (
-                    <EyeOff className="w-5 h-5" />
+                    <EyeOff className="w-6 h-6" />
                   ) : (
-                    <Eye className="w-5 h-5" />
+                    <Eye className="w-6 h-6" />
                   )}
                 </button>
               </div>
@@ -186,30 +186,29 @@ const Login: React.FC = () => {
             <Button
               type="submit"
               disabled={loading}
-              variant="gradient"
-              className="w-full max-w-sm h-13 font-bold text-base group relative overflow-hidden mt-8 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300"
+              className="w-full max-w-md h-14 font-extrabold text-lg group relative overflow-hidden mt-8 rounded-xl shadow-glow-blue hover:shadow-glow-blue-lg transition-all duration-300 bg-gradient-to-r from-blue-500 via-blue-600 to-cyan-500 hover:from-blue-600 hover:via-blue-700 hover:to-cyan-600"
             >
               {loading ? (
                 <>
-                  <Loader2 className="w-5 h-5 animate-spin" />
+                  <Loader2 className="w-6 h-6 animate-spin" />
                   Logging in...
                 </>
               ) : (
                 <>
                   Login
-                  <ArrowRight className="w-5 h-5 transition-transform group-hover:translate-x-1 duration-300" />
+                  <ArrowRight className="w-6 h-6 transition-transform group-hover:translate-x-1 duration-300" />
                 </>
               )}
             </Button>
           </form>
 
           {/* Register Link */}
-          <div className="pt-4">
-            <p className="text-center text-sm text-slate-600">
+          <div className="pt-6">
+            <p className="text-center text-lg text-slate-300 font-medium">
               Don't have an account?{" "}
               <Link
                 to="/register"
-                className="text-purple-600 hover:text-pink-600 font-bold underline-offset-4 hover:underline transition-colors duration-200"
+                className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-cyan-400 font-extrabold underline-offset-4 hover:underline transition-all duration-200 hover:from-blue-300 hover:to-cyan-300"
               >
                 Create account
               </Link>

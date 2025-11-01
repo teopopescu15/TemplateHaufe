@@ -1,0 +1,15 @@
+# Caddyfile for app.hackathon-haufe-teo.com
+# Proxies frontend and backend separately
+
+app.hackathon-haufe-teo.com {
+    # Backend API - handle all /api/* requests first
+    # Use 'handle' instead of 'handle_path' to preserve the /api prefix
+    handle /api/* {
+        reverse_proxy localhost:9000
+    }
+
+    # Frontend - handle everything else (root, /login, /register, etc.)
+    handle {
+        reverse_proxy localhost:6180
+    }
+}

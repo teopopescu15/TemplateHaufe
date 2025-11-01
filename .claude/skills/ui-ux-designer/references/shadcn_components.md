@@ -1,34 +1,76 @@
-# shadcn/ui Components Reference
+# shadcn/ui Components Reference with MCP Integration
 
-Comprehensive guide for implementing shadcn/ui components with modern design patterns using the **shadcn MCP server**.
+Your complete guide to leveraging the **7 powerful shadcn MCP tools** for intelligent component generation with built-in responsiveness.
 
-## 🚀 MCP-Powered Component Generation (Recommended)
+## 🚀 The 7 MCP Tools - Your Component Powerhouse
 
-### shadcn MCP Server Integration
+### Official shadcn MCP Server Tools
 
-**Primary Method**: Use the shadcn MCP server for instant component generation.
+The shadcn MCP server provides **7 essential tools** that eliminate manual component work:
 
-**Server**: `@magnusrodseth/shadcn-mcp-server` (v1.1.2)
-**Status**: ✅ Active in Claude Code
+### 1️⃣ `get_project_registries`
+**Purpose**: View all configured component sources
+```
+Example: "Show me available registries"
+Returns: [@shadcn, @acme, @internal]
+```
 
-**How to Use**:
-1. Request component: "Generate shadcn Button component"
-2. MCP returns complete TypeScript code
-3. Save to `src/components/ui/[component].tsx`
-4. Customize with your styling
-5. Import and use
+### 2️⃣ `list_items_in_registries`
+**Purpose**: Browse complete component catalog
+```
+Example: "List all components from @shadcn"
+Returns: Full list of components, blocks, demos
+```
 
-**Advantages**:
-- ✅ **No npm install** - Instant generation
-- ✅ **Always current** - Latest component versions
-- ✅ **Type-safe** - Full TypeScript support
-- ✅ **Accessible** - ARIA attributes included
-- ✅ **Complete** - All dependencies and imports
+### 3️⃣ `search_items_in_registries`
+**Purpose**: Find components intelligently
+```
+Example: "Find form components"
+Returns: Matching components with descriptions
+```
+
+### 4️⃣ `view_items_in_registries`
+**Purpose**: Get complete component implementation
+```
+Example: "Show me the button component"
+Returns: Full TypeScript/React code
+```
+
+### 5️⃣ `get_item_examples_from_registries`
+**Purpose**: Access working demos
+```
+Example: "Find button demos"
+Returns: Complete demo implementations
+```
+
+### 6️⃣ `get_add_command_for_items`
+**Purpose**: Generate installation commands
+```
+Example: "How to add button and card"
+Returns: npx shadcn@latest add button card
+```
+
+### 7️⃣ `get_audit_checklist`
+**Purpose**: Verify everything works
+```
+Example: "Check my implementation"
+Returns: Validation checklist
+```
+
+## ✨ Why shadcn Components Are Superior
+
+**BUILT-IN RESPONSIVENESS** - No manual breakpoint work needed:
+- ✅ **Mobile-first by default** - Scales perfectly from 320px to 4K
+- ✅ **Touch-optimized** - 44px minimum touch targets
+- ✅ **Flexible layouts** - Adapts to any screen size
+- ✅ **Smart typography** - Scales appropriately
+- ✅ **Tested on all devices** - Production-ready
 
 **Available Components** (50+):
 - Button, Input, Card, Alert, Label, Separator
 - Dialog, Dropdown Menu, Tabs, Select, Checkbox
 - Table, Chart, Calendar, Progress, Badge
+- Navigation Menu, Sidebar, Breadcrumb
 - And 35+ more...
 
 ### Manual Installation (Fallback)
@@ -494,7 +536,51 @@ import {
 </DropdownMenu>
 ```
 
-## Icons with Lucide React
+## Icons Priority
+
+**IMPORTANT**: Use shadcn icon components FIRST, lucide-react ONLY as fallback.
+
+### Priority Order
+
+1. **shadcn icon components** (preferred - built into shadcn/ui)
+2. **lucide-react** (fallback only when shadcn doesn't provide the specific icon)
+
+### When to Use Each
+
+**Use shadcn icons for:**
+- Buttons with icons
+- Form components (input icons, labels with icons)
+- Navigation elements
+- Standard UI patterns
+- Any component that shadcn provides with icon support
+
+**Use lucide-react for:**
+- Custom implementations not covered by shadcn
+- Specific icons that shadcn components don't include
+- One-off icon needs outside of standard components
+
+### Installation Priority
+
+```bash
+# 1. FIRST: Check if shadcn provides the component with icons
+npx shadcn@latest add button input label card alert
+
+# 2. ONLY IF NEEDED: Install lucide-react as fallback
+npm install lucide-react
+```
+
+### Import Priority
+
+```jsx
+// ✓ PREFERRED: Use shadcn components with built-in icon support
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+
+// ○ FALLBACK ONLY: Import from lucide-react when shadcn doesn't provide
+import { Mail, Lock, User } from "lucide-react";
+```
+
+## Icons with Lucide React (FALLBACK ONLY)
 
 ### Installation
 
@@ -733,6 +819,230 @@ export function StyledInput({ className, ...props }: InputProps) {
     />
   );
 }
+```
+
+## Modern Component Card Patterns
+
+### Component Card with Blue Gradient Icon
+
+**Design Rule**: All component cards should follow this modern design pattern with blue gradient icons and hover effects.
+
+**Complete Card Structure**:
+```jsx
+<div className="group relative">
+  {/* Hover border effect */}
+  <div className="absolute inset-0 rounded-lg border border-blue-500/0 group-hover:border-blue-500/40 transition-all duration-300"></div>
+
+  <Card className="relative">
+    <CardHeader>
+      {/* Blue gradient icon container with glow */}
+      <div
+        className="w-11 h-11 rounded-xl bg-gradient-to-br from-blue-500 via-blue-600 to-cyan-500 flex items-center justify-center shadow-glow-blue group-hover:scale-105 transition-transform duration-300"
+        style={{ boxShadow: 'rgba(96, 165, 250, 0.4) 0px 0px 15px' }}
+      >
+        <Layers className="w-5 h-5 text-white" />
+      </div>
+      <CardTitle>Component Title</CardTitle>
+      <CardDescription>Component description</CardDescription>
+    </CardHeader>
+    <CardContent>
+      {/* Content here */}
+    </CardContent>
+  </Card>
+</div>
+```
+
+**Key Features**:
+- **Hover border**: Animated blue border on card hover (`border-blue-500/40`)
+- **Gradient icon**: Blue-to-cyan gradient background (`from-blue-500 via-blue-600 to-cyan-500`)
+- **Glow effect**: Custom box shadow with blue glow (`rgba(96, 165, 250, 0.4)`)
+- **Scale animation**: Icon scales up on card hover (`group-hover:scale-105`)
+- **Smooth transitions**: 300ms duration for all animations
+
+**Icon Container Specifications**:
+- **Size**: `w-11 h-11` (44px × 44px)
+- **Border radius**: `rounded-xl` (0.75rem)
+- **Gradient**: `bg-gradient-to-br from-blue-500 via-blue-600 to-cyan-500`
+- **Icon size**: `w-5 h-5` (20px × 20px)
+- **Icon color**: `text-white`
+- **Shadow**: `rgba(96, 165, 250, 0.4) 0px 0px 15px`
+
+**Border Effect Specifications**:
+- **Position**: `absolute inset-0` (covers entire card)
+- **Default state**: `border-blue-500/0` (transparent)
+- **Hover state**: `border-blue-500/40` (40% opacity blue)
+- **Transition**: `transition-all duration-300`
+
+### Component Grid Layout
+
+```jsx
+<div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+  {/* Component Card 1 */}
+  <div className="group relative">
+    <div className="absolute inset-0 rounded-lg border border-blue-500/0 group-hover:border-blue-500/40 transition-all duration-300"></div>
+    <Card className="relative">
+      <CardHeader className="space-y-4">
+        <div
+          className="w-11 h-11 rounded-xl bg-gradient-to-br from-blue-500 via-blue-600 to-cyan-500 flex items-center justify-center group-hover:scale-105 transition-transform duration-300"
+          style={{ boxShadow: 'rgba(96, 165, 250, 0.4) 0px 0px 15px' }}
+        >
+          <Layers className="w-5 h-5 text-white" />
+        </div>
+        <CardTitle className="text-lg">Layers</CardTitle>
+        <CardDescription>Manage your layers and components</CardDescription>
+      </CardHeader>
+    </Card>
+  </div>
+
+  {/* Component Card 2 */}
+  <div className="group relative">
+    <div className="absolute inset-0 rounded-lg border border-blue-500/0 group-hover:border-blue-500/40 transition-all duration-300"></div>
+    <Card className="relative">
+      <CardHeader className="space-y-4">
+        <div
+          className="w-11 h-11 rounded-xl bg-gradient-to-br from-blue-500 via-blue-600 to-cyan-500 flex items-center justify-center group-hover:scale-105 transition-transform duration-300"
+          style={{ boxShadow: 'rgba(96, 165, 250, 0.4) 0px 0px 15px' }}
+        >
+          <Settings className="w-5 h-5 text-white" />
+        </div>
+        <CardTitle className="text-lg">Settings</CardTitle>
+        <CardDescription>Configure your preferences</CardDescription>
+      </CardHeader>
+    </Card>
+  </div>
+
+  {/* Component Card 3 */}
+  <div className="group relative">
+    <div className="absolute inset-0 rounded-lg border border-blue-500/0 group-hover:border-blue-500/40 transition-all duration-300"></div>
+    <Card className="relative">
+      <CardHeader className="space-y-4">
+        <div
+          className="w-11 h-11 rounded-xl bg-gradient-to-br from-blue-500 via-blue-600 to-cyan-500 flex items-center justify-center group-hover:scale-105 transition-transform duration-300"
+          style={{ boxShadow: 'rgba(96, 165, 250, 0.4) 0px 0px 15px' }}
+        >
+          <Zap className="w-5 h-5 text-white" />
+        </div>
+        <CardTitle className="text-lg">Quick Actions</CardTitle>
+        <CardDescription>Access common tasks quickly</CardDescription>
+      </CardHeader>
+    </Card>
+  </div>
+</div>
+```
+
+### Common Icons for Component Cards
+
+```jsx
+import {
+  Layers,      // Layers/components
+  Settings,    // Settings/configuration
+  Zap,         // Quick actions/performance
+  Users,       // User management
+  Database,    // Data/storage
+  BarChart,    // Analytics/charts
+  Shield,      // Security
+  Package,     // Packages/modules
+  Cpu,         // Processing/compute
+  Cloud,       // Cloud services
+  Lock,        // Authentication
+  Globe,       // Network/web
+} from "lucide-react";
+```
+
+### Reusable Component Card Component
+
+```tsx
+// components/ui/component-card.tsx
+import { Card, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
+import { LucideIcon } from "lucide-react";
+import { cn } from "@/lib/utils";
+
+interface ComponentCardProps {
+  icon: LucideIcon;
+  title: string;
+  description: string;
+  className?: string;
+  onClick?: () => void;
+}
+
+export function ComponentCard({
+  icon: Icon,
+  title,
+  description,
+  className,
+  onClick
+}: ComponentCardProps) {
+  return (
+    <div
+      className={cn("group relative cursor-pointer", className)}
+      onClick={onClick}
+    >
+      {/* Hover border effect */}
+      <div className="absolute inset-0 rounded-lg border border-blue-500/0 group-hover:border-blue-500/40 transition-all duration-300"></div>
+
+      <Card className="relative h-full">
+        <CardHeader className="space-y-4">
+          {/* Blue gradient icon container */}
+          <div
+            className="w-11 h-11 rounded-xl bg-gradient-to-br from-blue-500 via-blue-600 to-cyan-500 flex items-center justify-center group-hover:scale-105 transition-transform duration-300"
+            style={{ boxShadow: 'rgba(96, 165, 250, 0.4) 0px 0px 15px' }}
+          >
+            <Icon className="w-5 h-5 text-white" aria-hidden="true" />
+          </div>
+          <CardTitle className="text-lg">{title}</CardTitle>
+          <CardDescription>{description}</CardDescription>
+        </CardHeader>
+      </Card>
+    </div>
+  );
+}
+
+// Usage
+import { ComponentCard } from "@/components/ui/component-card";
+import { Layers, Settings, Zap } from "lucide-react";
+
+<div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+  <ComponentCard
+    icon={Layers}
+    title="Layers"
+    description="Manage your layers and components"
+    onClick={() => console.log("Layers clicked")}
+  />
+  <ComponentCard
+    icon={Settings}
+    title="Settings"
+    description="Configure your preferences"
+    onClick={() => console.log("Settings clicked")}
+  />
+  <ComponentCard
+    icon={Zap}
+    title="Quick Actions"
+    description="Access common tasks quickly"
+    onClick={() => console.log("Quick Actions clicked")}
+  />
+</div>
+```
+
+### Tailwind Config for Blue Glow
+
+Add to `tailwind.config.js` for consistent blue glow shadows:
+
+```js
+theme: {
+  extend: {
+    boxShadow: {
+      'glow-blue': 'rgba(96, 165, 250, 0.4) 0px 0px 15px',
+      'glow-blue-lg': 'rgba(96, 165, 250, 0.5) 0px 0px 25px',
+    }
+  }
+}
+```
+
+**Usage with Tailwind class**:
+```jsx
+<div className="w-11 h-11 rounded-xl bg-gradient-to-br from-blue-500 via-blue-600 to-cyan-500 flex items-center justify-center shadow-glow-blue group-hover:scale-105 transition-transform duration-300">
+  <Layers className="w-5 h-5 text-white" />
+</div>
 ```
 
 ## Best Practices

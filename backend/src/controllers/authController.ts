@@ -3,7 +3,7 @@ import { validationResult } from 'express-validator';
 import passport from 'passport';
 import bcrypt from 'bcryptjs';
 import * as UserRepository from '../repositories/UserRepository';
-import { generateAccessToken, generateRefreshToken } from '../services/jwtService';
+import { generateAccessToken, generateRefreshToken, verifyRefreshToken } from '../services/jwtService';
 import {
   sendVerificationEmail,
   generateVerificationToken,
@@ -40,8 +40,9 @@ const authController = {
         const refreshToken = generateRefreshToken(user);
 
         // Cookie options
+        // Using sameSite: 'lax' for production because frontend and backend share the same domain via Caddy
         const cookieOptions = process.env.NODE_ENV === 'production'
-          ? { httpOnly: true, secure: true, sameSite: 'none' as const, path: '/' }
+          ? { httpOnly: true, secure: true, sameSite: 'lax' as const, path: '/' }
           : { httpOnly: true, secure: false, sameSite: 'lax' as const, path: '/' };
 
         res.cookie('accessToken', accessToken, {
@@ -157,8 +158,9 @@ const authController = {
       const refreshToken = generateRefreshToken(user);
 
       // Cookie options
+      // Using sameSite: 'lax' for production because frontend and backend share the same domain via Caddy
       const cookieOptions = process.env.NODE_ENV === 'production'
-        ? { httpOnly: true, secure: true, sameSite: 'none' as const, path: '/' }
+        ? { httpOnly: true, secure: true, sameSite: 'lax' as const, path: '/' }
         : { httpOnly: true, secure: false, sameSite: 'lax' as const, path: '/' };
 
       res.cookie('accessToken', accessToken, {
@@ -225,6 +227,49 @@ const authController = {
     res.clearCookie('accessToken');
     res.clearCookie('refreshToken');
     return res.json({ message: 'Logged out successfully' });
+  },
+
+  /**
+   * Refresh access token using refresh token
+   */
+  refreshToken: async (req: Request, res: Response) => {
+    try {
+      const refreshToken = req.cookies.refreshToken;
+
+      if (!refreshToken) {
+        return res.status(401).json({ error: 'Refresh token required' });
+      }
+
+      // Verify refresh token
+      const decoded = verifyRefreshToken(refreshToken);
+
+      if (!decoded) {
+        return res.status(403).json({ error: 'Invalid or expired refresh token' });
+      }
+
+      // Generate new access token with same claims
+      const tokenPayload = {
+        id: decoded.id,
+        email: decoded.email
+      };
+      const newAccessToken = generateAccessToken(tokenPayload);
+
+      // Cookie options (same as login)
+      const cookieOptions = process.env.NODE_ENV === 'production'
+        ? { httpOnly: true, secure: true, sameSite: 'lax' as const, path: '/' }
+        : { httpOnly: true, secure: false, sameSite: 'lax' as const, path: '/' };
+
+      // Set new access token cookie
+      res.cookie('accessToken', newAccessToken, {
+        ...cookieOptions,
+        maxAge: 15 * 60 * 1000
+      });
+
+      return res.json({ message: 'Token refreshed successfully' });
+    } catch (err) {
+      console.error('Refresh token error:', err);
+      return res.status(500).json({ error: 'Server error during token refresh' });
+    }
   },
 
   /**

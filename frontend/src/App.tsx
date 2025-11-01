@@ -1,11 +1,14 @@
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { AuthProvider } from './context/AuthContext';
 import ProtectedRoute from './components/ProtectedRoute';
+import Layout from './components/Layout';
 import Login from './pages/Login';
 import Register from './pages/Register';
 import VerifyEmail from './pages/VerifyEmail';
 import AuthSuccess from './pages/AuthSuccess';
 import Dashboard from './pages/Dashboard';
+import MonacoEditor from './pages/MonacoEditor';
+import MonacoErrorBoundary from './components/monaco/MonacoErrorBoundary';
 import ThemePreview from './pages/ThemePreview';
 
 function App() {
@@ -25,7 +28,21 @@ function App() {
             path="/dashboard"
             element={
               <ProtectedRoute>
-                <Dashboard />
+                <Layout>
+                  <Dashboard />
+                </Layout>
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/monaco-editor"
+            element={
+              <ProtectedRoute>
+                <Layout>
+                  <MonacoErrorBoundary>
+                    <MonacoEditor />
+                  </MonacoErrorBoundary>
+                </Layout>
               </ProtectedRoute>
             }
           />

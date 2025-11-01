@@ -26,6 +26,7 @@ const loginValidators = [
 router.post('/register', registerValidators, authController.register);
 router.post('/login', loginValidators, authController.login);
 router.get('/verify-email', authController.verifyEmail);
+router.post('/refresh', authController.refreshToken);
 
 // Google OAuth routes
 router.get('/google', authController.googleAuth);

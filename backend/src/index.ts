@@ -3,6 +3,10 @@ import cors from 'cors';
 import cookieParser from 'cookie-parser';
 import passport from './config/passport';
 import authRoutes from './routes/auth';
+import agentRoutes from './routes/agent';
+import githubRoutes from './routes/github';
+import projectsRoutes from './routes/projects';
+import codeReviewRoutes from './routes/codeReview';
 import dotenv from 'dotenv';
 import pool from './config/database';
 
@@ -30,6 +34,10 @@ app.use(passport.initialize());
 
 // Routes
 app.use('/api/auth', authRoutes);
+app.use('/api/agent', agentRoutes);
+app.use('/api/github', githubRoutes);
+app.use('/api/projects', projectsRoutes);
+app.use('/api/code-review', codeReviewRoutes);
 
 app.get('/', (_req: Request, res: Response) => {
   res.json({ message: 'Authentication API is running' });

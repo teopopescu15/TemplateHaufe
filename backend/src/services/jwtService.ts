@@ -10,8 +10,9 @@ export const generateAccessToken = (user: { id: number; email: string }): string
   return jwt.sign(payload, process.env.JWT_SECRET!, { expiresIn: '15m' });
 };
 
-export const generateRefreshToken = (user: { id: number }): string => {
-  return jwt.sign({ id: user.id }, process.env.JWT_REFRESH_SECRET!, { expiresIn: '7d' });
+export const generateRefreshToken = (user: { id: number; email: string }): string => {
+  const payload: JwtPayload = { id: user.id, email: user.email };
+  return jwt.sign(payload, process.env.JWT_REFRESH_SECRET!, { expiresIn: '7d' });
 };
 
 export const verifyAccessToken = (token: string): JwtPayload | null => {
@@ -22,9 +23,9 @@ export const verifyAccessToken = (token: string): JwtPayload | null => {
   }
 };
 
-export const verifyRefreshToken = (token: string): { id: number } | null => {
+export const verifyRefreshToken = (token: string): JwtPayload | null => {
   try {
-    return jwt.verify(token, process.env.JWT_REFRESH_SECRET!) as { id: number };
+    return jwt.verify(token, process.env.JWT_REFRESH_SECRET!) as JwtPayload;
   } catch (err) {
     return null;
   }

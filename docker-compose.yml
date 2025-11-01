@@ -1,0 +1,65 @@
+services:
+  # PostgreSQL Database
+  postgres:
+    image: postgres:16-alpine
+    container_name: haufe-postgres-2
+    environment:
+      POSTGRES_DB: teos_hackathon
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: Teodora44
+    ports:
+      - "6433:5432"
+    volumes:
+      - ./postgres_data_new:/var/lib/postgresql/data
+      - ./backend/init-db.sql:/docker-entrypoint-initdb.d/init-db.sql
+    networks:
+      - haufe-network-2
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # Backend API
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: haufe-backend-2
+    ports:
+      - "9000:9000"
+    volumes:
+      - ./backend:/app
+      - /app/node_modules
+    env_file:
+      - ./backend/.env
+    environment:
+      OLLAMA_API_URL: http://172.19.0.1:11434/api/chat
+    depends_on:
+      postgres:
+        condition: service_healthy
+    networks:
+      - haufe-network-2
+
+  # Frontend React App
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: haufe-frontend-2
+    ports:
+      - "6180:6180"
+    volumes:
+      - ./frontend:/app
+      - /app/node_modules
+    environment:
+      VITE_API_URL: /api
+      VITE_PORT: 6180
+    depends_on:
+      - backend
+    networks:
+      - haufe-network-2
+
+networks:
+  haufe-network-2:
+    driver: bridge
